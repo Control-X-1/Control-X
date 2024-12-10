@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Nosotros | ControlX</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="CSS/style.css" rel="stylesheet" type="text/css"/>
+        
+        <script src="https://kit.fontawesome.com/789d37f7c5.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <!-- 
+        ==================================================
+                             TOP-BAR 
+        ==================================================
+        -->
+        <div class="div_top-bar">
+            <button class="btn-registro" onclick="abrirRegistro()">Registrarse</button>
+            <button class="btn-registro" onclick="abrirInicioSesion()">/   Iniciar Sesión</button>
+            <div class="fondo-emergente" id="fondoEmergente"></div>
+    
+            <!-- Formulario de Registro -->
+            <div class="ventana-emergente" id="formularioRegistro">
+                <span class="cerrar" onclick="cerrarFormulario()">&times;</span>
+                <h2>Formulario de Registro</h2>
+                <form>
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                    <label for="correoRegistro">Correo Electrónico:</label>
+                    <input type="email" id="correoRegistro" name="correoRegistro" required>
+                    <label for="contraseñaRegistro">Contraseña:</label>
+                    <input type="password" id="contraseñaRegistro" name="contraseñaRegistro" required>
+                    <button type="submit">Registrarse</button>
+                </form>
+            </div>
+    
+            <!-- Formulario de Inicio de Sesión -->
+            <div class="ventana-emergente" id="formularioInicioSesion">
+                <span class="cerrar" onclick="cerrarFormulario()">&times;</span>
+                <h2>Formulario de Inicio de Sesión</h2>
+                <form onsubmit="return validarInicioSesion()">
+                    <label for="correoSesion">Correo Electrónico:</label>
+                    <input type="text" id="correoSesion" name="correoSesion" required>
+                    <label for="contraseñaSesion">Contraseña:</label>
+                    <input type="password" id="contraseñaSesion" name="contraseñaSesion" required>
+                    <button type="submit">Iniciar Sesión</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- 
+        ==================================================
+                             HEADER  
+        ==================================================
+        -->
+        <header>
+            <div class="div_header">
+                <button class="button_logo">
+                    <img src="img/Logo PNG.png" alt="logoPrincipal">
+                </button>
+                <div class="div_buscador">
+                    <form id="form_buscador" action="productos.html" method="GET">
+                        <input type="text" class="input_textBuscador" name="search" placeholder="Buscar...">
+                        <button type="submit" class="button_buscar">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </form>
+                    <button id="restablecer" class="button_restablecer">Mostrar Todos</button>
+                </div>
+                <div class="carrito-container">
+                    <button class="button_carrito">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </button>
+                </div>
+                <button class="menu-icon" id="nav-toggle" onclick="menu()"><i class="fa-solid fa-bars"></i></button>
+            </div>
+        </header>
+
+
+        <!-- 
+        ==================================================
+                              MENU 
+        ==================================================
+        -->
+        <nav class="nav">
+            <div class="nav_menu" id="nav-menu">
+                <ul class="nav_list">
+                    <li class="nav_item"><a href="index.html" class="nav_link">Principal</a></li>
+                    <li class="nav_item"><a href="productos.html" class="nav_link">Productos</a></li>
+                    <li class="nav_item"><a href="nosotros.html" class="nav_link">Nosotros</a></li>
+                    <li class="nav_item"><a href="contactanos.html" class="nav_link">Contactanos</a></li>
+                </ul>
+    
+                <!-- Boton Cerrar-->
+                 <div class="nav_cerrar" id="nav_cerrar">
+                    <i class="fa-solid fa-xmark"></i>
+                 </div>
+            </div>
+        </nav>
+
+        <!-- 
+        ==================================================
+                             NOSOTROS
+        ==================================================
+        -->
+        <div class="div_nosotros">
+            <img src="img/imagenNosotros.jpg" alt="imagenFondoTitulo" />
+            <h1>Nosotros</h1>
+        </div>
+
+        <!-- 
+        ==================================================
+                          QUIENES SOMOS
+        ==================================================
+        -->
+        <div class="div_quienesSomos">
+            <div class="QuienesSomos-texto">
+                <h2>¿Quienes somos?</h2>
+                <p>
+                    Somos una tienda virtual comprometida con ofrecer una amplia gama de productos tecnológicos
+                    de alta calidad. Trabajamos en estrecha colaboración con aliados estratégicos, lo que nos
+                    permite no solo diversificar nuestra oferta, sino también brindar un alcance ampliado a nuestros
+                    socios. Nuestra misión es conectar a los consumidores con lo último en tecnología, asegurando
+                    que cada compra sea una experiencia satisfactoria y confiable.
+                </p>
+            </div>
+            <img class="QuienesSomos-imagen" src="img/imagenQuienesSomos.jpeg" alt="" />
+        </div>
+
+        <!-- 
+        ==================================================
+                        MISION Y VISION
+        ==================================================
+        -->
+        <div class="MisionVision">
+            <div class="contenedor-misionvision">
+                <div class="texto-misionvision">
+                    <h2>Misión</h2>
+                    <p>
+                        Nuestra misión es ofrecer productos tecnológicos de la más alta calidad, superando las
+                        expectativas de nuestros clientes y asegurando que encuentren en un solo lugar lo mejor
+                        del mercado.
+                    </p>
+                    <img src="img/imagenMision.jpg" alt="" />
+                </div>
+
+                <div class="texto-misionvision">
+                    <h2>Visión</h2>
+                    <p>
+                        Nuestra visión es ser la empresa líder en ventas de productos tecnológicos, reconocida por
+                        la innovación, calidad y excelencia en la atención al cliente.
+                    </p>
+                    <img src="img/imagenVision.jpg" alt="" />
+                </div>
+            </div>
+        </div>
+
+        <!-- 
+        ==================================================
+                         LINEA DE TIEMPO
+        ==================================================
+        -->
+
+        <div class="LineaDeTiempo">
+            <h2 class="titulo_LineaDeTiempo">Línea del tiempo</h2>
+            <div class="carrusel-imagenes">
+                <div class="imagen-carrusel">
+                    <img src="img/imgFundacion.jpg" alt="" />
+                    <h2 class="h2-carrusel">Fundamos la empresa con pocos trabajadores y productos disponibles</h2>
+                    <h2 class="h2-carrusel2">2022</h2>
+                </div>
+                <div class="imagen-carrusel">
+                    <img src="img/imgProductos.jpg" alt="" />
+                    <h2 class="h2-carrusel">Llevamos a cabo una expansión de productos, realizando alianzas con más
+                        empresas</h2>
+                    <h2 class="h2-carrusel2">2023</h2>
+                </div>
+                <div class="imagen-carrusel">
+                    <img src="img/imgTransformacionDigital.jpg" alt="" />
+                    <h2 class="h2-carrusel">Inversión en dispositivos digitales y transformación de la empresa</h2>
+                    <h2 class="h2-carrusel2">2024</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- 
+       ==================================================
+                          SUSCRIBIRSE
+       ==================================================
+        --> 
+        <div class="div_suscribirse">
+            <h2>Suscribete para recibir las mejores ofertas!</h2>
+            <form>
+                <input type="text" placeholder="Nombre Completo" required>
+                <input type="tel" placeholder="+51 999 999 999" required>
+                <button type="submit">SUSCRIBIRSE</button>
+            </form>
+        </div>
+
+
+        <!-- 
+        ==================================================
+                              FOOTER
+        ==================================================
+        --> 
+        <footer>
+            <div class="footer-container">
+                <div class="footer-sections">
+
+                    <!-- Sección acerca de nosotros -->
+                    <div class="footer-section">
+                        <h4>ACERCA DE NOSOTROS</h4>
+                        <ul>
+                            <li><a href="#">Nuestra Empresa</a></li>
+                            <li><a href="#">Nuestros Locales</a></li>
+                            <li><a href="#">Modalidades de Pago</a></li>
+                            <li><a href="#">Delivery Lima</a></li>
+                            <li><a href="#">Envíos a Provincia</a></li>
+                            <li><a href="#">Serv. Mant. y Reparación</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Sección garantías -->
+                    <div class="footer-section">
+                        <h4>GARANTÍAS</h4>
+                        <ul>
+                            <li><a href="#">T & C Garantía</a></li>
+                            <li><a href="#">Términos y Condiciones</a></li>
+                            <li><a href="#">Política de privacidad</a></li>
+                        </ul>
+                        <div class="social-icons">
+                            <a href="#"><i class="fab fa-facebook"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-tiktok"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Sección ubicaciones -->
+                    <div class="footer-section">
+                        <h4>UBÍCANOS</h4>
+                        <p>Tienda - C.C Centro Lima<br> Av. Bolivia 148 Int 552 553<br> Central (01) 425 - 1191</p>
+                    </div>
+
+                    <!-- Sección contactos -->
+                    <div class="footer-section">
+                        <h4>CONTACTOS</h4>
+                        <p>ventasweb@Controlx.com.pe<br>online@Controlx.com.pe<br>Central (01) 425 - 1191</p>
+                        <p>Esta página permite pagos online con:</p>
+                        <div class="pago-icons">
+                            <img src="img/vissaa-1.png" alt="Visa">
+                            <img src="img/masterr.png" alt="Mastercard">
+                            <img src="img/yape.png" alt="Yaape">
+                            <img src="img/dinners.png" alt="Diners Club">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>Copyright 2024 © Importaciones Controlx. Todos los derechos reservados</p>
+                </div>
+            </div>
+        </footer>
+        <script src="js/menu.js"></script>
+        <script src="js/registro.js"></script>
+        <script src="js/filtrar.js"></script>
+        <script src="js/redirigir.js"></script>
+    </body>
+</html>

@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Productos | ControlX</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="CSS/style.css" rel="stylesheet" type="text/css" />
+    <script src="https://kit.fontawesome.com/789d37f7c5.js" crossorigin="anonymous"></script>
+    <script src="js/filtro.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- 
+        ==================================================
+                             TOP-BAR 
+        ==================================================
+        -->
+    <div class="div_top-bar">
+        <button class="btn-registro" onclick="abrirRegistro()">Registrarse</button>
+        <button class="btn-registro" onclick="abrirInicioSesion()">/ Iniciar Sesión</button>
+        <div class="fondo-emergente" id="fondoEmergente"></div>
+
+        <!-- Formulario de Registro -->
+        <div class="ventana-emergente" id="formularioRegistro">
+            <span class="cerrar" onclick="cerrarFormulario()">&times;</span>
+            <h2>Formulario de Registro</h2>
+            <form>
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+                <label for="correoRegistro">Correo Electrónico:</label>
+                <input type="email" id="correoRegistro" name="correoRegistro" required>
+                <label for="contraseñaRegistro">Contraseña:</label>
+                <input type="password" id="contraseñaRegistro" name="contraseñaRegistro" required>
+                <button type="submit">Registrarse</button>
+            </form>
+        </div>
+
+        <!-- Formulario de Inicio de Sesión -->
+        <div class="ventana-emergente" id="formularioInicioSesion">
+            <span class="cerrar" onclick="cerrarFormulario()">&times;</span>
+            <h2>Formulario de Inicio de Sesión</h2>
+            <form onsubmit="return validarInicioSesion()">
+                <label for="correoSesion">Correo Electrónico:</label>
+                <input type="text" id="correoSesion" name="correoSesion" required>
+                <label for="contraseñaSesion">Contraseña:</label>
+                <input type="password" id="contraseñaSesion" name="contraseñaSesion" required>
+                <button type="submit">Iniciar Sesión</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 
+        ==================================================
+                             HEADER  
+        ==================================================
+        -->
+    <header>
+        <div class="div_header">
+            <button class="button_logo">
+                <img src="img/Logo PNG.png" alt="logoPrincipal">
+            </button>
+            <div class="div_buscador">
+                <form id="form_buscador" action="productos.html" method="GET">
+                    <input type="text" class="input_textBuscador" name="search" placeholder="Buscar...">
+                    <button class="button_buscar" type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
+                <button id="restablecer" class="button_restablecer">Mostrar Todos</button>
+            </div>
+            <div class="carrito-container">
+                <button class="button_carrito">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </button>
+                <div class="count-products">
+                    <span id="contador-productos">0</span>
+                </div>
+            </div>
+            <button class="menu-icon" id="nav-toggle" onclick="menu()"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </header>
+
+    <!-- 
+        ==================================================
+                              MENU 
+        ==================================================
+        -->
+    <nav class="nav">
+        <div class="nav_menu" id="nav-menu">
+            <ul class="nav_list">
+                <li class="nav_item"><a href="index.html" class="nav_link">Principal</a></li>
+                <li class="nav_item"><a href="productos.html" class="nav_link">Productos</a></li>
+                <li class="nav_item"><a href="nosotros.html" class="nav_link">Nosotros</a></li>
+                <li class="nav_item"><a href="contactanos.html" class="nav_link">Contactanos</a></li>
+            </ul>
+
+            <!-- Boton Cerrar-->
+            <div class="nav_cerrar" id="nav_cerrar">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 
+        ==================================================
+                       FILTROS - PRODUCTOS 
+        ==================================================
+        -->
+    <div class="container-cart-products hidden-cart">
+        <div class="row-product">
+            <div class="cart-product">
+                <div class="info-cart-product">
+
+                </div>
+            </div>
+        </div>
+        <p class="cart-empty">El carrito está vacío</p>
+        <div class="cart-total hidden">
+            <h3>Total: </h3>
+            <span class="total-pagar">S/.0</span>
+        </div>
+
+    </div>
+
+    <div class="ContenedorProductosFiltros">
+
+        <!-- Filtros -->
+        <aside class="filters">
+            <br><br><br>
+            <h2>Producto</h2>
+            <div>
+                <label>
+                    <input type="checkbox" value="Raton" class="filter-checkbox">
+                    Ratón
+                </label>
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" value="Teclado" class="filter-checkbox">
+                    Teclado
+                </label>
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" value="Auriculares" class="filter-checkbox">
+                    Auriculares
+                </label>
+            </div>
+            <br><br><br>
+
+            <h2>Marca</h2>
+            <div>
+                <label>
+                    <input type="checkbox" value="Redragon" class="filter-checkbox">
+                    Redragon
+                </label>
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" value="Razer" class="filter-checkbox">
+                    Razer
+                </label>
+            </div>
+            <br><br><br>
+        </aside>
+
+        <section class="gallery">
+            <div class="card" data-category="Raton Redragon">
+                <img src="imgProductsRedragon/KING-M724-B.png" alt="" />
+                <h3>Ratón Redragon King M724</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/140.90
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Raton Redragon">
+                <img src="imgProductsRedragon/STAR-PRO-M917B.png" alt="" />
+                <h3>Ratón Redragon St4r Pro M917B</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/221.90
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Teclado Redragon">
+                <img src="imgProductsRedragon/EISA-K686WB-RGB-PRO.png" alt="" />
+                <h3>Teclado Redragon Eisa K686</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/379.90
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Teclado Redragon">
+                <img src="imgProductsRedragon/K673-UCAL-PRO.png" alt="" />
+                <h3>Teclado Redragon Ucal Pro K673</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/245.60
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Teclado Redragon">
+                <img src="imgProductsRedragon/PNGS-AZURE-K652.png" alt="" />
+                <h3>Teclado Redragon Azure K652</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/335.50
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Raton Redragon">
+                <img src="imgProductsRedragon/KING-PRO-1K-BLACK-M916.png" alt="" />
+                <h3>Ratón Redragon King Pro M916</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/272.90
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Teclado Redragon">
+                <img src="imgProductsRedragon/Ziggs-K669-PNGHQ-1.png" alt="" />
+                <h3>Teclado Redragon Ziggs K669</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/208.90
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Auriculares Redragon">
+                <img src="imgProductsRedragon/ZEUS-X-W-B.png" alt="" />
+                <h3>Auriculares Zeus X Wireless H510</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/272.90
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Auriculares Redragon">
+                <img src="imgProductsRedragon/ire-848-blue.png" alt="" />
+                <h3>Auriculares Ire Pro H848</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/169.90
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Auriculares Redragon">
+                <img src="imgProductsRedragon/PANDORA-1.png" alt="" />
+                <h3>Auriculares Pandora H350</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/153.50
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Auriculares Redragon">
+                <img src="imgProductsRedragon/PELOPS-cta.png" alt="" />
+                <h3>Auriculares Pelops H818</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/151
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Auriculares Redragon">
+                <img src="imgProductsRedragon/ICON.png" alt="" />
+                <h3>Auriculares Icon H520</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/275
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Auriculares Redragon">
+                <img src="imgProductsRedragon/HYLAS.png" alt="" />
+                <h3>Auriculares Hylas H260</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/99.90
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Auriculares Redragon">
+                <img src="imgProductsRedragon/LAMIA.png" alt="" />
+                <h3>Auriculares Lamia 2 H320</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/159
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Auriculares Redragon">
+                <img src="imgProductsRedragon/ZEUS-B.png" alt="" />
+                <h3>Auriculares Zeus2 H510</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/236.50
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Raton Redragon">
+                <img src="imgProductsRedragon/storm-pro-png.png" alt="" />
+                <h3>Ratón Storm Pro M808-KS</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/170.50
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Raton Redragon">
+                <img src="imgProductsRedragon/IMPACT.png" alt="" />
+                <h3>Ratón Impact M908</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/135.90
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Raton Redragon">
+                <img src="imgProductsRedragon/COBRA-FPS.png" alt="" />
+                <h3>Ratón Cobra FPS M711FPS</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/130
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Raton Redragon">
+                <img src="imgProductsRedragon/GAINER.png" alt="" />
+                <h3>Ratón Gainer M610</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/62
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Raton Redragon">
+                <img src="imgProductsRedragon/CETROPHORUS-RGB.png" alt="" />
+                <h3>Ratón Centrophorus RGB M601RGB</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/79
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Teclado Redragon">
+                <img src="imgProductsRedragon/KUMARA.png" alt="" />
+                <h3>Teclado Kumara K552</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/168.90
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Teclado Redragon">
+                <img src="imgProductsRedragon/K616-PNGHQ-1.png" alt="" />
+                <h3>Teclado Fizz Pro K616-RGB</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/239.90
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Teclado Redragon">
+                <img src="imgProductsRedragon/DEIMOS.png" alt="" />
+                <h3>Teclado DEIMOS K599</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/339
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Teclado Redragon">
+                <img src="imgProductsRedragon/MITRA.png" alt="" />
+                <h3>Teclado Mitra K551</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/192.90
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Teclado Redragon">
+                <img src="imgProductsRedragon/SHIVA.png" alt="" />
+                <h3>Teclado Shiva K512</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/139
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+
+
+
+            <div class="card" data-category="Ratón Razer">
+                <img src="imgProductsRazer/RAZER VIPER V3 PRO.jpg" alt="" />
+                <h3>Ratón Razer Viper V3 Pro</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/725
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Ratón Razer">
+                <img src="imgProductsRazer/Razer DeathAdder V3 Pro.jpg" alt="" />
+                <h3>Ratón Razer DeathAdder V3 Pro</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/699.90
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Ratón Razer">
+                <img src="imgProductsRazer/Razer Viper Mini Signature Edition.png" alt="" />
+                <h3>Ratón Razer Viper Mini Signature Edition</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/950.90
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Ratón Razer">
+                <img src="imgProductsRazer/Razer Cobra Pro.jpg" alt="" />
+                <h3>Ratón Razer Cobra Pro</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/599
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Ratón Razer">
+                <img src="imgProductsRazer/Razer Basilisk V3 Pro 35K.png" alt="" />
+                <h3>Ratón Razer Basilisk V3 Pro 35K</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/760
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+
+            <div class="card" data-category="Teclado Razer">
+                <img src="imgProductsRazer/RAZER BLACKWIDOW V4 PRO 75.jpg" alt="" />
+                <h3>Teclado Razer BlackWidow V4 Pro 75%</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/959.90
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Teclado Razer">
+                <img src="imgProductsRazer/Razer Huntsman V3 Pro.jpg" alt="" />
+                <h3>Teclado Razer Huntsman V3 Pro</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/1019.90
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Teclado Razer">
+                <img src="imgProductsRazer/Razer Huntsman V3 Pro Mini.jpg" alt="" />
+                <h3>Teclado Razer Huntsman V3 Pro Mini</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/659.90
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Teclado Razer">
+                <img src="imgProductsRazer/RAZER ORNATA V3.png" alt="" />
+                <h3>Teclado Razer Ornata V3</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/319
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Teclado Razer">
+                <img src="imgProductsRazer/Razer BlackWidow V4 X.png" alt="" />
+                <h3>Teclado Razer BlackWidow V4 X</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/449
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+
+            <div class="card" data-category="Auriculares Razer">
+                <img src="imgProductsRazer/Razer Barracuda Pro.png" alt="" />
+                <h3>Auriculares Razer Barracuda Pro</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/879
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Auriculares Razer">
+                <img src="imgProductsRazer/RAZER KRAKEN V4 PRO.jpg" alt="" />
+                <h3>Auriculares Razer Kraken V4 Pro</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/850.90
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+            <div class="card" data-category="Auriculares Razer">
+                <img src="imgProductsRazer/Razer BlackShark V2 Pro.png" alt="" />
+                <h3>Auriculares Razer BlackShark V2 Pro</h3>
+                <div class="producto-precio">
+                    <span class="precio">
+                        s/1005
+                    </span>
+                </div>
+                <button class="btn-comprar">Añadir al carrito</button>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!--
+                <div class="card" data-category="category1">
+                    <img src="img/Mouse-Logitech-G203.jpg" alt="Imagen 1" />
+                    <h3>Mouse Logitech G203 Color Azul Lightsync Gaming</h3>
+                    <div class="producto-precio">
+                        <span class="precio">
+                            $200 - S/ 638
+                        </span>
+                    </div>
+                </div>
+                <div class="card" data-category="category2">
+                    <img src="img/placa.jpg" alt="Imagen 2" />
+                    <h3>Placa Madre ASRock X570S PG RIPTIDE AM4 ATX</h3>
+                    <div class="producto-precio">
+                        <span class="precio">
+                            $197 - S/ 746
+                        </span>
+                    </div>
+                </div>
+                <div class="card" data-category="category3">
+                    <img src="img/teclado.jpg" alt="Imagen 3" />
+                    <h3>Teclado Mecánico DRACONIC RDK530</h3>
+                    <div class="producto-precio">
+                        <span class="precio">
+                            $80 - S/ 300
+                        </span>
+                    </div>
+                </div>
+                <div class="card" data-category="category1">
+                    <img src="img/audifono-logitech.jpg" alt="Imagen 4" />
+                    <h3>AUDIFONO LOGITECH G G432 BLACK GAMING 7.1 CON MICROFONO</h3>
+                    <div class="producto-precio">
+                        <span class="precio">
+                            $54 - S/ 203
+                        </span>
+                    </div>
+                </div>
+                <div class="card" data-category="category2">
+                    <img src="img/chair.jpg" alt="Imagen 5" />
+                    <h3>Silla Gamer Technisport Clasic Azul con Reposapies</h3>
+                    <div class="producto-precio">
+                        <span class="precio">
+                            $115 - S/ 429
+                        </span>
+                    </div>
+                </div>
+                <div class="card" data-category="category3">
+                    <img src="img/monitor-gaming-lenovo-g27qc-30-27-cur.jpg" alt="Imagen 5" />
+                    <h3>MONITOR GAMING LENOVO G27QC-30, 27", CURVO VA, QHD, 165Hz</h3>
+                    <div class="producto-precio">
+                        <span class="precio">
+                            $273 - S/ 1017
+                        </span>
+                    </div>
+                </div>
+                <div class="card" data-category="category1">
+                    <img src="img/pantalla Smg.jpg" alt="Imagen 5" />
+                    <h3>Monitor Samsung Curvo Odyssey G9, 49", 240Hz/1ms/HDMI</h3>
+                    <div class="producto-precio">
+                        <span class="precio">
+                            $805 - S/ 3000
+                        </span>
+                    </div>
+                </div>
+                <div class="card" data-category="category2">
+                    <img src="https://www.pcsystemstore.com.pe/wp-content/uploads/2022/02/TARJETA-DE-VIDEO-ASUS-ROG-STRIX-GEFORCE-RTX3060-12GB-GDDR6.jpg"
+                         alt="Imagen 5" />
+                    <h3>Tarjeta De Video Asus Rtx 3060 Gaming Oc 12gb Gddr6</h3>
+                    <div class="producto-precio">
+                        <span class="precio">
+                            $369 - S/ 1375
+                        </span>
+                    </div>
+                </div>
+                <div class="card" data-category="category3">
+                    <img src="https://www.efe.com.pe/media/catalog/product/f/a/fa507xv-hq058w-1000x1000-100.jpg?quality=80&bg-color=255,255,255&fit=bounds&height=700&width=700&canvas=700:700"
+                         alt="Imagen 5" />
+                    <h3>Laptop Gamer Asus TUF A15 15.6" Windows 11 AMD Ryzen 9 7940HS 16GB</h3>
+                    <div class="producto-precio">
+                        <span class="precio">
+                            $1610 - S/ 6000
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card" data-category="category1">
+                    <img src="https://rimage.ripley.com.pe/home.ripley/Attachment/MKP/3782/PMP20000074943/imagen3-1.jpeg"
+                         alt="Imagen 5" />
+                    <h3> AUDÍFONOS LOGITECH G TRUE WIRELESS G535 C/MICROF</h3>
+                    <div class="producto-precio">
+                        <span class="precio">
+                            $118 - S/ 442
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card" data-category="category2">
+                    <img src="https://http2.mlstatic.com/D_NQ_NP_857147-MPE54450989897_032023-O.webp" alt="Imagen 5" />
+                    <h3>Case Computadora Gamer Rgb,carcasa De Vidrio Templado M-atx</h3>
+                    <div class="producto-precio">
+                        <span class="precio">
+                            $120 - S/ 450
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card" data-category="category3">
+                    <img src="https://media.kingston.com/kingston/product/ktc-product-ssd-a400-sa400s37-240gb-3-zm-lg.jpg"
+                         alt="Imagen 5" />
+                    <h3>Unidad de estado sólido A400 - 240GB-960GB - Kingston Technology</h3>
+                    <div class="producto-precio">
+                        <span class="precio">
+                            $90 - S/ 339
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card" data-category="category1">
+                    <img src="https://cyccomputer.pe/44685-medium_default/memoria-16gb-ddr5-kingston-fury-renegade-rgb-bus-6400mhz-pnkf564c32rsa-16.jpg"
+                         alt="Imagen 5" />
+                    <h3>MEMORIA 16GB DDR5 KINGSTON FURY RENEGADE RGB BUS 6400MHz</h3>
+                    <div class="producto-precio">
+                        <span class="precio">
+                            $140 - S/ 521
+                        </span>
+                    </div>
+                </div>
+                <div class="card" data-category="category2">
+                    <img src="https://corpted.com/wp-content/uploads/2021/12/451A1.jpg" alt="Imagen 5" />
+                    <h3>DITI TECLADO MECANICO GAMER DE UNA MANO K585RGB ID451</h3>
+                    <div class="producto-precio">
+                        <span class="precio">
+                            $45 - S/ 167
+                        </span>
+                    </div>
+                </div>
+                <div class="card" data-category="category3">
+                    <img src="https://storage-test.nyc3.cdn.digitaloceanspaces.com/images/a1af4723-94bf-497d-852b-cb13733f9f14/mouse-gamer-logitech-g502-ligthspeed-wireless-black-910-005565.jpg?fm=jpg&q=80&fit=max&crop=1080%2C1080%2C0%2C0&w=1080&h=1080"
+                         alt="Imagen 5" />
+                    <h3>Mouse Gamer Logitech G502 LIGTHSPEED WIRELESS BLACK</h3>
+                    <div class="producto-precio">
+                        <span class="precio">
+                            $97 - S/ 365
+                        </span>
+                    </div>
+                </div>
+                <div class="card" data-category="category1">
+                    <img src="https://i0.wp.com/maqtech.pe/wp-content/uploads/2023/11/TARJETA-DE-VIDEO-GDDR6-8GB-RTX-4060-GIGABYTE-GAMING-OC-NVIDIA-GEFORCE-128-BITS-100.jpg?fit=1080%2C1080&ssl=1"
+                         alt="Imagen 5" />
+                    <h3>TARJETA DE VIDEO GDDR6 8GB RTX 4060 GIGABYTE GAMING OC NVIDIA GEFORCE 128 BIT</h3>
+                    <div class="producto-precio">
+                        <span class="precio">
+                            $390 - S/ 1454
+                        </span>
+                    </div>
+                </div>
+                <div class="card" data-category="category2">
+                    <img src="https://oechsle.vteximg.com.br/arquivos/ids/16370234-1000-1000/image-0.jpg?v=638315947155670000"
+                         alt="Imagen 5" />
+                    <h3>Placa Madre Asus Republic Of Gamers Strix X670E E Gaming Wifi Atx</h3>
+                    <div class="producto-precio">
+                        <span class="precio">
+                            $751 - S/ 2800
+                        </span>
+                    </div>
+                </div>
+                -->
+        </section>
+    </div>
+
+    <!-- 
+        ==================================================
+                           PROMOCIONES
+        ==================================================
+        -->
+
+    <div class="gallery_promociones">
+        <div class="card_gallery">
+            <img src="https://www.impacto.com.pe/storage/banners/172782899049862.webp" alt="Imagen 1">
+        </div>
+        <div class="card_gallery">
+            <img src="https://www.impacto.com.pe/storage/banners/172782932849.webp" alt="Imagen 2">
+        </div>
+        <div class="card_gallery">
+            <img src="https://www.impacto.com.pe/storage/banners/172782871190396.webp" alt="Imagen 3">
+        </div>
+        <div class="card_gallery">
+            <img src="https://www.impacto.com.pe/storage/banners/172565218592594.webp" alt="Imagen 4">
+        </div>
+    </div>
+
+
+    <!-- 
+        ==================================================
+                           SUSCRIBIRSE
+        ==================================================
+        -->
+    <div class="div_suscribirse">
+        <h2>Suscribete para recibir las mejores ofertas!</h2>
+        <form>
+            <input type="text" placeholder="Nombre Completo" required>
+            <input type="tel" placeholder="+51 999 999 999" required>
+            <button type="submit">SUSCRIBIRSE</button>
+        </form>
+    </div>
+
+    <!-- 
+        ==================================================
+                              FOOTER
+        ==================================================
+        -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-sections">
+
+                <!-- Sección acerca de nosotros -->
+                <div class="footer-section">
+                    <h4>ACERCA DE NOSOTROS</h4>
+                    <ul>
+                        <li><a href="#">Nuestra Empresa</a></li>
+                        <li><a href="#">Nuestros Locales</a></li>
+                        <li><a href="#">Modalidades de Pago</a></li>
+                        <li><a href="#">Delivery Lima</a></li>
+                        <li><a href="#">Envíos a Provincia</a></li>
+                        <li><a href="#">Serv. Mant. y Reparación</a></li>
+                    </ul>
+                </div>
+
+                <!-- Sección garantías -->
+                <div class="footer-section">
+                    <h4>GARANTÍAS</h4>
+                    <ul>
+                        <li><a href="#">T & C Garantía</a></li>
+                        <li><a href="#">Términos y Condiciones</a></li>
+                        <li><a href="#">Política de privacidad</a></li>
+                    </ul>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <!-- Sección ubicaciones -->
+                <div class="footer-section">
+                    <h4>UBÍCANOS</h4>
+                    <p>Tienda - C.C Centro Lima<br> Av. Bolivia 148 Int 552 553<br> Central (01) 425 - 1191</p>
+                </div>
+
+                <!-- Sección contactos -->
+                <div class="footer-section">
+                    <h4>CONTACTOS</h4>
+                    <p>ventasweb@Controlx.com.pe<br>online@Controlx.com.pe<br>Central (01) 425 - 1191</p>
+                    <p>Esta página permite pagos online con:</p>
+                    <div class="pago-icons">
+                        <img src="img/vissaa-1.png" alt="Visa">
+                        <img src="img/masterr.png" alt="Mastercard">
+                        <img src="img/yape.png" alt="Yaape">
+                        <img src="img/dinners.png" alt="Diners Club">
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>Copyright 2024 © Importaciones Controlx. Todos los derechos reservados</p>
+            </div>
+        </div>
+    </footer>
+    <script src="js/menu.js"></script>
+    <script src="js/registro.js"></script>
+    <script src="js/filtrar.js"></script>
+    <script src="js/redirigir.js"></script>
+    <script src="js/pro.js"></script>
+</body>
+
+</html>
